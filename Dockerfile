@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM node:16.17.0-alpine 
 
 ENV NODE_VERSION=production
 
@@ -21,6 +21,7 @@ RUN yarn install
 COPY . .
 
 # Expose port
+ENV PORT=4000
 EXPOSE 4000
 
 # start command 

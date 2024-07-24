@@ -14,7 +14,8 @@ yarn run start
 ```
 #### Docker
 ```Docker
-docker run 
+docker build -t graphqlserver . 
+docker run -it -p 4000:4000 graphqlserver
 ```
 
 ### References
