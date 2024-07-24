@@ -1,17 +1,23 @@
-FROM alpine:3.19
+FROM alpine:latest
 
-ENV NODE_VERSION 22.5.1
+ENV NODE_VERSION=development
+
+# install yarn 
+RUN apk --no-cache add nodejs yarn --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
 
 WORKDIR /app
 
-COPY src ./app/src
+# copy package.json and package-lock.json over to directory
+COPY package*.json ./
 
-COPY package.json .
-
-COPY tsconfig.json .
-
+# install all dependencies via ayrn command
 RUN yarn install 
 
+# Bundle app source
+COPY . .
+
+# Expose port
 EXPOSE 4000
 
-CMD [ "yarn","run", "start" ]
+# start command 
+CMD [ "yarn", "start" ]
