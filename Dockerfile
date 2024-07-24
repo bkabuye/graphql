@@ -1,16 +1,18 @@
 FROM alpine:latest
 
-ENV NODE_VERSION=development
+ENV NODE_VERSION=production
 
 # install yarn 
-RUN apk --no-cache add nodejs yarn --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
+RUN set -eux \
+    & apk add \
+        --no-cache \
+        yarn
 
+# set directory
 WORKDIR /app
 
-# copy package.json and package-lock.json over to directory
-COPY package*.json ./
-
-COPY yarn.lock ./
+# copy package.json, package-lock.json and yarn.lock over to directory
+COPY package*.json yarn.lock ./
 
 # install all dependencies via yarn command
 RUN yarn install 
